@@ -2873,15 +2873,33 @@ void drawAbout(App& app)
     if (!app.showAbout)
         return;
 
-    ImGui::SetNextWindowSize(ImVec2(420, 340), ImGuiCond_Appearing);
+    ImGui::SetNextWindowSize(ImVec2(520, 480), ImGuiCond_Appearing);
     ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
     if (ImGui::Begin((std::string(_L("About InmarScope")) + "###About InmarScope").c_str(), &app.showAbout,
                      ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking |
                      ImGuiWindowFlags_NoCollapse))
     {
+        ImGui::BeginChild("##about_scroll", ImVec2(0, 0));
         ImGui::TextWrapped("InmarScope v" INMARSCOPE_VERSION);
         ImGui::Separator();
-        ImGui::TextWrapped("InmarScope was created by Sarah Rose.");
+        ImGui::TextWrapped("InmarScope was created by Sarah Rose, who wrote and maintains the core decoder, receiver and UI.");
+        ImGui::Spacing();
+        ImGui::TextWrapped("Contributors:");
+        ImGui::Bullet();
+        ImGui::SameLine();
+        ImGui::TextWrapped("blkph0x (ben) - SDRplay receiver support, cross-platform build/release CI, regional band plans, the received-aircraft flight map, and UI workflow improvements (copyable panes, pop-out windows, PPM adjustment).");
+        ImGui::Bullet();
+        ImGui::SameLine();
+        ImGui::TextWrapped("z1000biker - native ADALM-Pluto / Pluto+ (AD936x) support and ICAO population from Classic Aero AES IDs.");
+        ImGui::Bullet();
+        ImGui::SameLine();
+        ImGui::TextWrapped("Brumi-2021 - touchpad pinch-to-zoom on Windows and Linux, and a crash fix for the JFFT header mismatch.");
+        ImGui::Bullet();
+        ImGui::SameLine();
+        ImGui::TextWrapped("gprime31 - RTL-TCP source fixes.");
+        ImGui::Bullet();
+        ImGui::SameLine();
+        ImGui::TextWrapped("KiwifruitDev - documentation and build instructions, plus README and screenshot updates.");
         ImGui::Spacing();
         ImGui::TextWrapped("Built with components from:");
         ImGui::TextDisabled("  JAERO (Jontio)");
@@ -2894,6 +2912,7 @@ void drawAbout(App& app)
         ImGui::TextWrapped("Thanks to Arclamp VK4SUS for providing a server for accessing the satellite during development.");
         ImGui::Spacing();
         ImGui::TextWrapped("Thanks to Mike AA8IA for donating an Airspy R2 and Airspy Mini for development.");
+        ImGui::EndChild();
     }
     ImGui::End();
 }
